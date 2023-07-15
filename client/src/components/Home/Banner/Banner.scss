@@ -59,6 +59,7 @@
         margin-bottom: 20px;
         @include md {
           font-size: 180px;
+          text-shadow: 4px 4px rgb(43, 36, 36);
         }
       }
       p {

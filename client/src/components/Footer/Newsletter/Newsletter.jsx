@@ -18,7 +18,7 @@ const Newsletter = () => {
            <input type="text" placeholder="Email Address" />
            <button>Subscribe</button> 
         </div>
-        <div className="text">Will be according to our privacy Policy</div>
+        <div className="text">Enjoy Daily Updates !</div>
         <div className="social-icons">
             <div className="icon">
                 <FaFacebookF size={14}/>

@@ -5,9 +5,30 @@ import { BsCurrencyRupee } from "react-icons/bs";
 import CartItem from "./CartItem/CartItem";
 import { useContext } from "react";
 import { Context } from "../../utils/context";
+import {loadStripe} from "@stripe/stripe-js";
 
+import {makepaymentrequest} from "../../utils/api"
 const Cart = ({ setShowCart }) => {
   const { cartItems, cartsubtotal } = useContext(Context);
+  const stripepromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+
+  const handlepayment = async () => {
+
+    try {
+      const stripe = await stripepromise;
+    const res =await makepaymentrequest.post("/api/orders",{
+      products : cartItems,
+    });
+
+    await stripe.redirectToCheckout({
+      sessionId:res.data.stripeSession.id
+    });
+      
+    } catch (error) {
+      console.log(error);
+    }
+   
+  };
   return (
     <div className="cart-panel">
       <div className="opac-layer"></div>
@@ -35,7 +56,7 @@ const Cart = ({ setShowCart }) => {
               </span>
             </div>
             <div className="button">
-              <button className="checkout-cta">CheckOut</button>
+              <button className="checkout-cta" onClick={handlepayment}>CheckOut</button>
             </div>
           </div>
         </>}
